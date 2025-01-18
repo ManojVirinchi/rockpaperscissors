@@ -17,12 +17,12 @@ function getComputerChoice()
 }
 
 
-function getHumanChoice()
-{
-    let choice = prompt("Enter your choice in rock , paper, scissors");
-    return choice;
+// function getHumanChoice()
+// {
+//     let choice = prompt("Enter your choice in rock , paper, scissors");
+//     return choice;
 
-}
+// }
 
 
 
@@ -52,39 +52,48 @@ function getHumanChoice()
  function game()
 {
 
-    for(let i=0;i<5;i++)
+ const rock = document.getElementById('rock');
+ const paper = document.getElementById('paper');
+ const scissors = document.getElementById('scissors');
+ const resDiv = document.createElement("div");
+ const scoreDiv = document.createElement("div");
+ const buttons = document.getElementById("buttons");
+
+ const clear = document.getElementById("clear");
+
+ buttons.appendChild(scoreDiv);
+ buttons.appendChild(resDiv);
+
+ function handClick(choice)
+ {
+    const compchoice = getComputerChoice();
+    const result = playround(compchoice,choice);
+    scoreDiv.textContent = `Scores: you ${hum} - Computer ${comp}`;
+
+    if(hum==5 || comp==5)
     {
-
-    
-        var compchoice = getComputerChoice();
-        var humchoice  = getHumanChoice();
-
-        if(humchoice.toLowerCase() != "rock" && humchoice.toLowerCase()!="paper" && humchoice.toLowerCase()!="scissors")
+        if(hum==5)
         {
-            console.log("wrong entry");
-            i--;
-            continue;
+            resDiv.textContent="You win !!! Game over, get some sleep.";
         }
-
-        playround(compchoice,humchoice);
-        console.log(`Score: Human - ${hum}, Computer - ${comp}`);
-
+        else{
+            resDiv.textContent="Computer win!! try again next time. ";
+        }
     }
 
-    if(hum==comp)
-    {
-        console.log(`its a tie as both got ${hum}`);
+ }
 
-    }
+ rock.addEventListener('click',() => handClick("rock"));
+ paper.addEventListener('click',() => handClick("paper"));
+ scissors.addEventListener('click',() => handClick("scissors"));
 
-    else if(hum>comp)
-    {
-        console.log(`you win !! your score is ${hum} and computer score is ${comp}`);
-    }
+ clear.addEventListener('click', ()=>{
+    resDiv.textContent="";
+    scoreDiv.textContent="";
+    comp=0;
+    hum=0;
+ });
 
-    else{
-        console.log(`Computer wins!! your score is ${hum} and computer score is ${comp}`);
-    }
 
 }
 
